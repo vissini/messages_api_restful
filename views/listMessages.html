@@ -1,0 +1,63 @@
+<style type="text/css">
+  .messages{
+    background: #fff;
+    margin-top: 20px;
+    padding:10px;
+  }
+
+</style>
+
+<div class="row">
+  <div class="col-md-12" ng-show="messages.length > 0">
+    
+<div class="view">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <form role="form" name="myForm" class="form-horizontal">
+          <div class="row">
+            <div class= "form-group" ng-class="{error: myForm.user.$invalid}">
+              <label class= "col-md-2"> Nome </label>
+              <div class="col-md-4">
+                <input name="user" ng-model="message.user" type= "text" class= "form-control" placeholder="Seu nome" required/>
+                <span ng-show="myForm.user.$dirty && myForm.user.$invalid" class="alert alert-danger" role="alert">Nome Obrigatório</span>
+              </div>
+            </div>
+            <div class= "form-group">
+              <label class= "col-md-2"> Mensagem </label>
+              <div class="col-md-4">
+                <textarea name="message" ng-model="message.message" maxlength="140" ng-trim="false"  cols="10" rows="4" class= "form-control" placeholder="Digite sua mensagem de até 140 caracteres" required></textarea>
+                <span>{{140 - message.message.length}} restante(s)</span><br>
+                <div ng-show="myForm.message.$dirty && myForm.message.$invalid" class="alert alert-danger" role="alert">Mensagem obrigatória</div>
+              </div>
+            </div>
+            <div class= "form-group">
+              <label class= "col-md-2"></label>
+              <div class="col-md-4">
+                <button ng-click="saveMessage(message);" ng-disabled="isClean() || myForm.$invalid" class="btn btn-primary">Enviar Mensagem</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="jumbotron">  
+        <div ng-repeat="data in messages" class="content messages">
+          <div class="row">
+            <div class="col-xs-12"><span class="pull-left"><strong>{{data.user}}</strong></span><span class="pull-right"><em>{{data.date | date}}</em></span></div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">{{data.message}}</div>
+          </div>
+        </div>
+        <div class="col-xs-12" ng-show="messages.length == 0">
+            <div class="col-xs-12">
+                <h4>Nenhuma mensagem enviada até o momento</h4>
+            </div>
+        </div>
+    </div>
+    
+</div>
